@@ -1,0 +1,65 @@
+<div class="page-heading">
+  <h3>
+    <?=H('通用设置')?>
+  </h3>
+  <ul class="breadcrumb">
+    <li>
+      <a href="<?=URL('admin/layout')?>">
+        <?=H('Gowild')?>
+      </a>
+    </li>
+    <li>
+      <a href="<?=URL('admin/layout')?>">
+        <?=H('微信')?>
+      </a>
+    </li>
+    <li class="active">
+      <?=H('设置')?>
+    </li>
+  </ul>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <section class="panel">
+      <!-- 列表头 -->
+      <header class="panel-heading">
+        <?=H('微信主设置')?>
+      </header>
+      <div class="row">
+        <div class="panel-body">
+          <div class="col-md-12">
+            <form class="form-horizontal" action="<?=URL('theme/add/'.$theme->id)?>" method="POST">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">模块名称</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" name="name" value="<?=$theme->name?>">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">模块描述</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" name="description" value="<?=$theme->description?>">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">状态</label>
+                <div class="col-sm-6">
+                  <select class="form-control m-bot15" name="status">
+                    <option value="0" <?=$theme->status==0? 'selected':''?>>启用</option>
+                    <option value="1" <?=$theme->status==1? 'selected':''?>>禁用</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default">保存</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- 列表内容 -->
+    </section>
+  </div>
+</div>

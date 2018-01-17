@@ -1,0 +1,6 @@
+---
+default:
+  dsn: mysql:dbname=gowild;host=mysql
+  username: $DB_NAME
+  password: $DB_PASSWORD
+...

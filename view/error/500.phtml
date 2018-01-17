@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title><?=H('服务器错误')?></title>
+  <link href="/adminex/css/style.css" rel="stylesheet">
+  <link href="/adminex/css/style-responsive.css" rel="stylesheet">
+</head>
+
+<body class="error-page">
+
+<section>
+  <div class="container">
+    <section class="error-wrapper text-center">
+        <h1><img alt="" src="/adminex/images/500-error.png"></h1>
+        <h2><?=H('连接失败')?></h2>
+        <h3><?=H('服务器发生了一些问题！')?></h3>
+        <p class="nrml-txt"><?=H('如果问题没有解决，您可以')?><a href="#"><?=H('参考解决办法')?></a></p>
+        <a class="back-btn" href="<?=URL('login')?>"><?=H('返回主页')?></a>
+    </section>
+  </div>
+</section>
+</body>
+</html>

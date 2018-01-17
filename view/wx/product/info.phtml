@@ -1,0 +1,138 @@
+<div class="page-heading">
+  <h3>
+    <?=H('商品管理')?>
+  </h3>
+  <ul class="breadcrumb">
+    <li>
+      <a href="<?=URL('admin/layout')?>">
+        <?=H('Gowild')?>
+      </a>
+    </li>
+    <li>
+      <a href="<?=URL('admin/layout')?>">
+        <?=H('微信')?>
+      </a>
+    </li>
+    <li >
+      <a href="<?=URL('theme')?>">
+        <?=H('商品')?>
+      </a>
+    </li>
+    <li class="active">
+      <?=H($product->name)?>
+    </li>
+  </ul>
+</div>
+<div class="container">
+    <div class="page-header">
+      <h1>商品基础信息<small>Subtext for header</small><p style="float: right;">商品主图<small>Subtext for header</small></p></h1>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <form class="form-horizontal" action="<?=URL('product/add/'.$product->id)?>" method="POST">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">商品名称</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="name" value="<?=$product->name?>">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">商品价格</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="price" value="<?=$product->price?>">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">库存</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="stock" value="<?=$product->stock?>">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">保存</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <div class="file-loading">
+          <input id="product-main" name="product-main[]" type="file" multiple>
+        </div>
+      </div>
+    </div>
+    <div class="page-header">
+      <h1>商品描述<small>Subtext for header</small></h1>
+    </div> 
+    <div class="row">
+      <div class="col-md-6">
+        <section class="panel">
+          <header class="panel-heading custom-tab ">
+            <ul class="nav nav-tabs">
+              <li class="active">
+                <a href="#home" data-toggle="tab"><?=H('商品详情')?></a>
+              </li>
+              <li class="">
+                <a href="#about" data-toggle="tab"><?=H('产品参数')?></a>
+              </li>
+              <li class="">
+                <a href="#profile" data-toggle="tab"><?=H('售后保障')?></a>
+              </li>
+            </ul>
+          </header>
+          <div class="panel-body">
+            <div class="tab-content">
+              <div class="tab-pane active" id="home">
+                <?=V('widgets/editor',[
+                    'url' => URL("product/details/{$product->id}"),
+                    'content' => a('product_details')->whose('product_id')->is($product->id)->redis()->content
+                  ])?>
+              </div>
+              <div class="tab-pane" id="about">
+                <?=V('widgets/editor',[
+                    'url' => URL("product/params/{$product->id}"),
+                    'content' => a('product_params')->whose('product_id')->is($product->id)->redis()->content
+                  ])?>
+              </div>
+              <div class="tab-pane" id="profile">
+                <?=V('widgets/editor',[
+                    'url' => URL("product/custormer/{$product->id}"),
+                    'content' => a('product_custormer')->whose('product_id')->is($product->id)->redis()->content
+                  ])?>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="col-md-6">
+      </div>
+    </div>
+</div>
+<script>
+$(function(){
+  $("#product-main").fileinput({
+      theme: 'fa',
+      uploadUrl: "<?=URL("product/update/$product->id")?>", // 上传路径
+      uploadAsync: false,
+      minFileCount: 1, // 最小上传数
+      maxFileCount: 1, // 最大上传
+      overwriteInitial: false,
+      initialPreview: [
+        "<?=$product->main_img?'/'.$product->main_img:''?>"
+      ],
+      initialPreviewConfig: [
+        {caption: "<?='商品主图'?>" ,key: 1, url: "<?='/'.$product->main_img?>",},
+      ],
+      initialPreviewAsData: true, // identify if you are sending preview data only and not the raw markup
+      initialPreviewFileType: 'image', // image is the default and can be overridden in config below
+      uploadExtraData: {
+          img_key: "1001",
+          img_keywords: "happy, places",
+      }
+  }).on('filesorted', function(e, params) {
+      console.log('file sorted', e, params);
+  }).on('fileuploaded', function(e, params) {
+      console.log('file uploaded', e, params);
+  });
+})
+</script>

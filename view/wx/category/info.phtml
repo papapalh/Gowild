@@ -1,0 +1,144 @@
+<div class="page-heading">
+  <h3>
+    <?=H('模块')?>
+  </h3>
+  <ul class="breadcrumb">
+    <li>
+      <a href="<?=URL('admin/layout')?>">
+        <?=H('Gowild')?>
+      </a>
+    </li>
+    <li>
+      <a href="<?=URL('admin/layout')?>">
+        <?=H('微信')?>
+      </a>
+    </li>
+    <li>
+      <a href="<?=URL('category')?>">
+        <?=H('模块管理')?>
+      </a>
+    </li>
+    <li class="active">
+      <?=H($category->name)?>
+    </li>
+  </ul>
+</div>
+<div class="container">
+  <div class="page-header">
+    <h1>模块界面<small>Subtext for header</small></h1>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <section class="panel">
+        <header class="panel-heading">
+          <?=H('模块界面')?>
+        </header>
+        <div class="panel-body">
+          <form class="form-horizontal" action="<?=URL('category/add/'.$category->id)?>" method="POST">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">模块名称</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="name" value="<?=$category->name?>">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">状态</label>
+              <div class="col-sm-10">
+                <select class="form-control m-bot15" name="status">
+                  <option value="0" <?=$category->status==0? 'selected':''?>>启用</option>
+                  <option value="11" <?=$category->status==11? 'selected':''?>>禁用</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">保存</button>
+              </div>
+            </div>
+          </form>
+        </div>  
+      </section>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-12">
+          <section class="panel">
+            <header class="panel-heading">
+              <?=H('关联商品')?>
+            </header>
+            <div class="panel-body">
+              <form action="<?=URL('category/connect/'.$category->id)?>" class="form-horizontal" method="POST">
+                <label class="control-label col-md-2"><?=H('选择商品')?></label>
+                <div class="col-md-10">
+                  <select multiple="multiple" class="multi-select" id="my_multi_select1"
+                          name="products[]">
+                    <?php foreach ($products as $product): ?>
+                      <option value="<?=$product->id?>"
+                        <?=in_array($product->id, $connect)?'selected':''?>
+                      ><?=H($product->name)?></option>
+                    <?php endforeach ?>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-10" style="padding-left: 16px;padding: 16px 0 0 25px;">
+                    <button type="submit" class="btn btn-default">保存</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-header">
+    <h1>模块主图<small>Subtext for header</small></h1>
+  </div> 
+  <div class="row">
+    <div class="col-md-6">
+      <section class="panel">
+        <header class="panel-heading">
+          <?=H('关联商品')?>
+        </header>
+        <div class="panel-body">
+          <div class="file-loading">
+            <input id="category-main" name="category-main[]" type="file" multiple>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<script>
+$(function(){
+
+    $("#category-main").fileinput({
+        theme: 'fa',
+        uploadUrl: "<?=URL("category/update/$category->id")?>", // 上传路径
+        uploadAsync: false,
+        minFileCount: 1, // 最小上传数
+        maxFileCount: 1, // 最大上传
+        overwriteInitial: false,
+        initialPreview: [
+          "<?=$category->main_img?'/'.$category->main_img:''?>"
+        ],
+        initialPreviewConfig: [
+          {caption: "<?='专题详情图'?>" ,key: 1, url: "<?='/'.$category->main_img?>",},
+        ],
+        initialPreviewAsData: true, // identify if you are sending preview data only and not the raw markup
+        initialPreviewFileType: 'image', // image is the default and can be overridden in config below
+        uploadExtraData: {
+            img_key: "1001",
+            img_keywords: "happy, places",
+        }
+    }).on('filesorted', function(e, params) {
+        console.log('file sorted', e, params);
+    }).on('fileuploaded', function(e, params) {
+        console.log('file uploaded', e, params);
+    });
+
+    $('#my_multi_select1').multiSelect();
+})
+</script>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Banana</title>
+  <meta charset="UTF-8" />
+  <link href="/adminex/css/style.css" rel="stylesheet">
+  <link href="/css/login.css" rel="stylesheet">
+</head>
+<body class="login-body">
+<!-- 登录整体表单发送 -->
+<div class="container">
+  <form class="form-signin">
+  	<!-- 标题title -->
+    <div class="form-signin-heading text-center" style="padding-bottom: 4px;">
+      <h1 class="sign-title"></h1>
+      <div class="login-dog">
+      	<span><i class="iconfont">&#xe622;</i></span>
+      	<span><?=H('狗尾草')?></span>
+      </div>
+    </div>
+
+    <!-- 数据input -->
+    <div class="login-wrap">
+      <span class="pull-right hide _error" id="name_login"><?=H('账号错误')?></span>
+      <input type="text" class="form-control has-error" placeholder="User ID" autofocus id='name'>
+      <span class="pull-right hide _error" id="password_login"><?=H('密码错误')?></span>
+      <input type="password" class="form-control" placeholder="Password" id="password">
+
+      <button class="btn btn-lg btn-login btn-block login-submit" type="button">
+          <i class="iconfont" style="font-size: 28px;">&#xe6e4;</i>
+      </button>
+
+      <div class="registration">
+          <?=H('没有账号')?>
+          <a class="" href="<?=URL('error/error404')?>">  
+            <?=H('注册')?>?
+          </a>
+      </div>
+      <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+          <span class="pull-right">
+              <a data-toggle="modal" href="#myModal" id="ex"> Forgot Password?</a>
+          </span>
+      </label>
+    </div>
+
+    <!-- Modal -->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title"><?=H('忘记密码?')?></h4>
+          </div>
+          <div class="modal-body">
+            <p style="color: #333;"><?=H('请输入您的账号用于找回密码。')?></p>
+            <input type="text" name="find_user" placeholder="User ID" autocomplete="off" class="form-control placeholder-no-fix">
+          </div>
+           <div class="modal-body">
+            <p style="color: #333;"><?=H('请输入验证码。')?></p>
+            <div class="row">
+              <div class="col-md-9">
+                <input type="text" name="recovery" placeholder="Recovery" autocomplete="off" class="form-control placeholder-no-fix">
+              </div>
+              <div class="col-md-3" id="recovery">
+                <img src="" style="width: 120px;border-radius: 6px;">
+                <!-- recovery -->
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-default" type="button"><?=H('关闭')?></button>
+            <button class="btn btn-primary" type="button" id="find_pw"><?=H('找回密码')?></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal -->
+  </form>
+</div>
+
+<div class="loading hide">
+  <div class="loader"></div>
+</div>
+
+</body>
+
+
+<script type="text/javascript" src="/jquery/jquery.js"></script>
+<script type="text/javascript" src="/bs3/js/bootstrap.js"></script>
+<!-- 项目主JS -->
+<script type="text/javascript" src="/js/gowild.js"></script>
+<!-- Login-JS -->
+<script type="text/javascript" src="/gowild/login.js"></script>
+</html>

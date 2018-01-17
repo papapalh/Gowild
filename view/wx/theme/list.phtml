@@ -1,0 +1,150 @@
+<div class="page-heading">
+  <h3>
+    <?=H('Theme-专题管理')?>
+  </h3>
+  <ul class="breadcrumb">
+    <li>
+      <a href="<?=URL('admin/layout')?>">
+        <?=H('Gowild')?>
+      </a>
+    </li>
+    <li>
+      <a href="<?=URL('admin/layout')?>">
+        <?=H('微信')?>
+      </a>
+    </li>
+    <li class="active">
+      <?=H('专题')?>
+    </li>
+  </ul>
+</div>
+<div class="row">
+  <div class="col-sm-8">
+    <section class="panel">
+      <!-- 列表头 -->
+      <header class="panel-heading">
+        <?=H('Theme-列表')?>
+        <span class="tools pull-right">
+          <a href="#myModal" data-toggle="modal" style="height: 34px;line-height: 12px;">+</a>
+        </span>
+      </header>
+
+      <!-- 列表内容 -->
+      <div class="panel-body">
+        <table class="table  table-hover general-table">
+          <thead>
+            <tr>
+              <th><?=H('ID')?></th>
+              <th><?=H('名称')?></th>
+              <th><?=H('详细描述')?></th>
+              <th><?=H('状态')?></th>
+              <th><?=H('操作')?></th>
+            </tr>
+          </thead>
+
+          <tbody>
+          	<?php foreach ($themes as $theme) :?>
+            <tr>
+            	<!-- ID -->
+              <td>
+                <a href="#">
+                  <?=H('#'.$theme->id)?>
+                </a>
+              </td>
+              <!-- 名称 -->
+              <td>
+              	<?=H($theme->name)?>
+              </td>
+              <!-- 详细描述 -->
+              <td>
+              	<?=H($theme->description)?>		
+              </td>
+              <td>
+              	<span class="label label-mini <?=\M\ORM\Theme::$class[$theme->status]?>">
+              		<?=H(\M\ORM\Theme::$statuses[$theme->status])?>
+              	</span>
+              </td>
+              <td>
+              	<a class="btn btn-success btn-xs" href="<?=URL('theme/info/'.$theme->id)?>" style="color: #fff;">修改</a>
+              	<a class="btn btn-danger btn-xs delete" href="<?=URL('theme/delete/'.$theme->id)?>" style="color: #fff;">删除</a>
+              <td>
+            </tr>
+          	<?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+  <div class="col-sm-4">
+    <section class="panel">
+      <header class="panel-heading">
+        <?=H('唯一横图展示')?>
+      </header>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <form class="form-horizontal bucket-form" method="POST" action="<?=URL('theme/only')?>">
+              <div class="form-group">
+                <label class="col-sm-4 control-label"><?=H('选择一个专题')?></label>
+                  <div class="col-sm-8 icheck ">
+                    <?php foreach ($only as $theme) :?>
+                    <div class="flat-grey single-row">
+                      <div class="radio">
+                        <input tabindex="10" type="radio"  name="only_id" value="<?=$theme->id?>" <?=$theme->only? 'checked':''?> >
+                        <label><?=H($theme->name)?></label>
+                      </div>
+                    </div>
+                    <?php endforeach;?>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-10">
+                  <button type="submit" class="btn btn-default">保存</button>
+                </div>
+              </div>
+            </form>
+            </div>
+          </div>
+      </div>
+    </section>
+  </div>
+</div>
+<!-- Modal -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="<?=URL('theme/add')?>" method="POST">
+        <div class="modal-header">
+          <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+          <h4 class="modal-title"><?=H('添加专题')?></h4>
+        </div>
+        <div class="modal-body">
+          <section class="panel">
+            <div class="panel-body">
+              <div class="form-group">
+                <label for="exampleInputEmail1"><?=H('名称')?></label>
+                <input type="text" class="form-control" name="name">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1"><?=H('详细描述')?></label>
+                <input type="text" class="form-control" name="description">
+              </div>
+              <div class="form-group">
+                  <label for="exampleInputPassword1"><?=H('状态')?></label>
+                  <select class="form-control m-bot15" name="status">
+                    <option value="0">启用</option>
+                    <option value="1">禁用</option>
+                  </select>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><?=H('关闭')?></button>
+          <button type="submit" class="btn btn-success"><?=H('保存')?></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

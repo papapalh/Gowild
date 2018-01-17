@@ -1,0 +1,127 @@
+<div class="page-heading">
+  <h3>
+      <?=H('Banner')?>
+  </h3>
+  <ul class="breadcrumb">
+    <li>
+      <a href="<?=URL('admin/layout')?>">
+        <?=H('Gowild')?>
+      </a>
+    </li>
+    <li>
+      <a href="<?=URL('admin/layout')?>">
+        <?=H('微信')?>
+      </a>
+    </li>
+    <li >
+      <a href="<?=URL('banner')?>">
+        <?=H('Banner')?>
+      </a>
+    </li>
+    <li class="active">
+      <?=H($banner->name)?>
+    </li>
+  </ul>
+</div>
+  
+<div class="container">
+    <div class="page-header">
+        <h1><?=H('轮播图修改')?><small><?=H('Subtext for header')?></small></h1>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <section class="panel">
+          <header class="panel-heading">
+            <?=H('轮播图修改')?>
+          </header>
+          <div class="panel-body">
+            <form class="form-horizontal" action="<?=URL('banner/upload/'.$banner->id)?>" method="POST">
+              <div class="form-group">
+                <label class="col-sm-2 control-label"><?=H('轮播名称')?></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" name="name" value="<?=$banner->name?>">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label"><?=H('轮播描述')?></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" name="description" value="<?=$banner->description?>">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label"><?=H('状态')?></label>
+                <div class="col-sm-8">
+                  <select class="form-control m-bot15" name="status">
+                    <option value="0" <?=$banner->status==1?'selected':'' ?>><?=H('启用')?></option>
+                    <option value="1" <?=$banner->status==1?'selected':'' ?>><?=H('禁用')?></option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default">保存</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="page-header">
+      <h1>轮播图主图<small>Subtext for header</small></h1>
+    </div> 
+    <div class="row">
+      <section class="panel">
+        <header class="panel-heading">
+          <?=H('轮播图修改')?>
+        </header>
+        <div class="panel-body">
+          <div class="file-loading">
+            <input id="input-702" name="banner[]" type="file" multiple>
+          </div>
+        </div>
+      </section>
+    </div>
+</div>
+<script type="text/javascript">
+  $("#input-702").fileinput({
+        theme: 'zh',
+        uploadUrl: "<?=URL("banner/img/$banner->id")?>", // 上传路径
+        deleteUrl: "<?=URL("/img/$banner->id")?>",
+        uploadAsync: false,
+        deleteAsync: false,
+        minFileCount: 1, // 最小上传数
+        maxFileCount: 4, // 最大上传
+        overwriteInitial: false,
+        initialPreview: [
+            // 循环已有图片
+            <?php foreach ($banner_images as $img) : ?>
+                "<?='/'.$img->url?>",
+            <?php endforeach; ?>
+        ],
+        initialPreviewConfig: [
+            // 循环已有图片
+            <?php for ($i = 0; $i < count($banner_images); $i++) :?>
+                {caption: "<?='banner'.($i+1)?>" ,key: <?=$banner_images[$i]->id?>, url: "<?=$banner_images[$i]->url?>",},
+            <?php endfor; ?>
+        ],
+        initialPreviewAsData: true, // identify if you are sending preview data only and not the raw markup
+        initialPreviewFileType: 'image', // image is the default and can be overridden in config below
+        uploadExtraData: {
+            img_key: "1001",
+            img_keywords: "happy, places",
+        }
+    }).on('filesorted', function(e, params) {
+        console.log('file sorted', e, params);
+    }).on('fileuploaded', function(e, params) {
+        console.log('file uploaded', e, params);
+    }).on('filepredelete', function(event, key, jqXHR, data) {  
+        if(!confirm("确定删除原文件？删除后不可恢复")){ 
+            console.log('Key = ' + key);  
+            console.log(jqXHR);  
+            console.log(data);
+            return false;
+        }
+    });
+</script>
+<!-- <script type="text/javascript" src="/jquery/jquery.js"></script> -->

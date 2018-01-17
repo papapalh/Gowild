@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <title>Gowild</title>
+
+  <!--模板主Css-->
+  <link href="/adminex/css/style.css" rel="stylesheet">
+
+  <!-- 上传图片Css -->
+  <link rel="stylesheet" type="text/css" href="/bs-fileinput/css/fileinput.css">
+
+  <!-- 关联选择插件 -->
+  <link rel="stylesheet" type="text/css" href="/adminex/js/jquery-multi-select/css/multi-select.css" />
+
+  <!-- 项目Css -->
+  <link href="/css/login.css" rel="stylesheet">
+
+  <!-- JQ -->
+  <script src="/adminex/js/jquery-1.10.2.min.js"></script>
+
+  <!-- 图片上传插件 -->
+  <script type="text/javascript" src="/bs-fileinput/js/fileinput.js"></script>
+
+  <script type="text/javascript" src="/adminex/js/data-tables/jquery.dataTables.js"></script>
+  <script type="text/javascript" src="/adminex/js/data-tables/DT_bootstrap.js"></script>
+
+  <!-- 富文本编辑器插件 -->
+  <script type="text/javascript" src="/wangEditor/wangEditor.js"></script>
+
+  <!-- 表格插件-editable -->
+  <script src="/adminex/js/editable-table.js"></script>
+
+  <!-- 关联选择插件 -->
+  <script type="text/javascript" src="/adminex/js/jquery-multi-select/js/jquery.multi-select.js"></script>
+
+</head>
+
+<?php
+  $me = _G('ME');
+  $route = explode('/', $_SERVER['REQUEST_URI'])[1];
+?>
+
+<body class="sticky-header left-side-collapsed">
+<section>
+  <!-- 侧边栏 -->
+  <div class="left-side sticky-left-side">
+    <!--logo-->
+    <div class="logo">
+      <span><i class="iconfont">&#xe622;</i></span>
+    </div>
+
+    <div class="logo-icon text-center">
+        <span>G</span>
+    </div>
+    <!--logo-end-->
+
+    <!--sidebar-->
+    <ul class="nav nav-pills nav-stacked custom-nav">
+      <li class="<?php echo $route == 'people'?'active':'';?>">
+        <a href="<?=URL('people')?>">
+          <i class="iconfont fa">&#xe63a;</i>
+          <span><?=H('人员管理')?></span>
+        </a>
+      </li>
+      <li class="<?php echo $route == 'banner'?'active':'';?>">
+        <a href="<?=URL('banner')?>">
+          <i class="iconfont fa">&#xe600;</i>
+          <span><?=H('轮播管理')?></span>
+        </a>
+      </li>
+      <li class="<?php echo $route == 'theme'?'active':'';?>">
+        <a href="<?=URL('theme')?>">
+          <i class="iconfont fa">&#xe606;</i>
+          <span><?=H('专题管理')?></span>
+        </a>
+      </li>
+      <li class="<?php echo $route == 'category'?'active':'';?>">
+        <a href="<?=URL('category')?>">
+          <i class="iconfont fa">&#xe64b;</i>
+          <span><?=H('模块管理')?></span>
+        </a>
+      </li>
+      <li class="<?php echo $route == 'product'?'active':'';?>">
+        <a href="<?=URL('product')?>">
+          <i class="iconfont fa">&#xe60a;</i>
+          <span><?=H('商品管理')?></span>
+        </a>
+      </li>
+      <li class="<?php echo $route == 'setting'?'active':'';?>">
+        <a href="<?=URL('setting')?>">
+          <i class="iconfont fa">&#xe740;</i>
+          <span><?=H('通用设置')?></span>
+        </a>
+      </li>
+    </ul>
+    <!--sidebar-end-->
+  </div>
+  <!-- 侧边栏-end -->
+    
+  <!-- 页面主体 -->
+  <div class="main-content" >
+    <!-- nav导航 -->
+    <div class="header-section">
+      <!-- 切换btn -->
+      <a class="toggle-btn"><i class="iconfont fa">&#xe69c;</i></a>
+        <!--人员信息下拉-->
+        <div class="menu-right">
+          <ul class="notification-menu">
+            <li>
+              <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                  <?= H($me->token)?>
+                  <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                  <li><a href="<?=URL('admin/go')?>"><i class="iconfont fa">&#xe625;</i><?=H('登出')?></a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+    </div>
+
+    <!-- 主体内容 -->
+    <div class="wrapper">
+      <?=$body?>
+    </div>
+    <!-- 页脚区域 -->
+    <footer>
+      2017 &copy; Gowild
+    </footer>
+    </div>
+</section>
+<div class="loading hide">
+  <div class="loader"></div>
+</div>
+
+<!-- bootstrap3 -->
+<script type="text/javascript" src="/bs3/js/bootstrap.js"></script>
+<!-- jq-ui -->
+<script src="/adminex/js/jquery-ui-1.9.2.custom.min.js"></script>
+<!-- 滚动条插件 -->
+<script src="/adminex/js/jquery.nicescroll.js"></script>
+<!--模板主JS-->
+<script src="/adminex/js/scripts.js"></script>
+<!--Gowild-JS-->
+<script src="/js/gowild.js"></script>
+
+</body>
+</html>

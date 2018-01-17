@@ -1,0 +1,6 @@
+---
+wx:
+  url: $WX_URL
+  appid: $WX_APPID
+  secret: $WX_SECRET
+...

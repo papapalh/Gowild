@@ -1,0 +1,120 @@
+<div class="page-heading">
+  <h3>
+      <?=H('Banner')?>
+  </h3>
+  <ul class="breadcrumb">
+    <li>
+      <a href="<?=URL('admin/layout')?>">
+        <?=H('Gowild')?>
+      </a>
+    </li>
+    <li>
+      <a href="<?=URL('admin/layout')?>">
+        <?=H('微信')?>
+      </a>
+    </li>
+    <li class="active">
+      <?=H('Banner')?>
+    </li>
+  </ul>
+</div>
+<div class="row">
+  <div class="col-sm-8">
+    <section class="panel">
+      <!-- 列表头 -->
+      <header class="panel-heading">
+        <?=H('Banner-列表')?>
+        <span class="tools pull-right">
+          <a href="#myModal" data-toggle="modal" style="height: 34px;line-height: 12px;">+</a>
+        </span>
+      </header>
+
+      <!-- 列表内容 -->
+      <div class="panel-body">
+        <table class="table  table-hover general-table">
+          <thead>
+            <tr>
+              <th><?=H('ID')?></th>
+              <th><?=H('名称')?></th>
+              <th><?=H('详细描述')?></th>
+              <th><?=H('状态')?></th>
+              <th><?=H('操作')?></th>
+            </tr>
+          </thead>
+
+          <tbody>
+          	<?php foreach ($banners as $banner) :?>
+            <tr>
+            	<!-- ID -->
+              <td>
+                <a href="#">
+                  <?=H('#'.$banner->id)?>
+                </a>
+              </td>
+              <!-- 名称 -->
+              <td>
+              	<?=H($banner->name)?>
+              </td>
+              <!-- 详细描述 -->
+              <td>
+              	<?=H($banner->description)?>		
+              </td>
+              <td>
+              	<span class="label label-mini <?=\M\ORM\Banner::$class[$banner->status]?>">
+                  <?=H(\M\ORM\Banner::$statuses[$banner->status])?>
+              	</span>
+              </td>
+              <td>
+              	<a class="btn btn-success btn-xs" style="color: #fff;" href="<?=URL('banner/info/'.$banner->id)?>">修改</a>
+              	<a class="btn btn-danger btn-xs delete" href="<?=URL('banner/delete/'.$banner->id)?>" style="color: #fff">删除</a>
+              <td>
+            </tr>
+          	<?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</div>
+<!-- Modal -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="<?=URL('banner/upload')?>" method="POST">
+        <div class="modal-header">
+          <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            <h4 class="modal-title"><?=H('添加Banner')?></h4>
+          </div>
+          <div class="modal-body">
+            <section class="panel">
+              <div class="panel-body">
+                <div class="form-group">
+                    <label for="exampleInputEmail1"><?=H('名称')?></label>
+                    <input type="text" class="form-control" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1"><?=H('详细描述')?></label>
+                    <input type="text" class="form-control" name="description">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1"><?=H('状态')?></label>
+                  <select class="form-control m-bot15" name="status">
+                    <option value="0"><?=H('启用')?></option>
+                    <option value="1"><?=H('禁用')?></option>
+                  </select>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal"><?=H('关闭')?></button>
+              <button type="submit" class="btn btn-success"><?=H('保存')?></button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- modal -->
+
+
+
